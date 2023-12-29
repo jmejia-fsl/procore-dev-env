@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:12.13
+    container_name: myPostgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - DATABASE_HOST=127.0.0.1
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=root
+      - POSTGRES_HOST_AUTH_METHOD=trust
+      - PGUSER=root
+      - PGPASSWORD=root
+    volumes: 
+      - ./postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7.0.8-alpine
+    container_name: myRedis
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server
+
+  memcached:
+    image: memcached:1.6.18-alpine
+    container_name: myMemcached
+    restart: always
+    ports:
+      - '11211:11211'
+
+  elasticsearch:
+    image: elasticsearch:7.17.12
+    container_name: myElasticSearch
+    restart: always
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - xpack.security.transport.ssl.enabled=false
+    ports:
+      - 9200:9200
+      - 9300:9300
+
+volumes:
+  postgres_data:
