@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   postgres:
-    image: postgres:12.13
+    image: postgres:14.7
     container_name: myPostgres
     restart: always
     ports:
@@ -45,12 +45,12 @@ services:
       - 9200:9200
       - 9300:9300
 
-  kibana:
-    image: kibana:6.8.0
-    container_name: myKibana
-    restart: always
-    ports:
-      - '5601:5601'
+  # kibana:
+  #   image: kibana:6.8.0
+  #   container_name: myKibana
+  #   restart: always
+  #   ports:
+  #     - '5601:5601'
 
 volumes:
   postgres_data:
